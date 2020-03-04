@@ -2,7 +2,7 @@ import loaded from "./loaded"
 import {
   RenderRequest,
   RenderResponse,
-} from "./render-server"
+} from "./renderServer"
 
 import router from "./router"
 
