@@ -24,9 +24,7 @@ export class RenderClient {
       const searchParams = new URLSearchParams(
         location.search
       )
-      const params = this.paramsToObject(
-        searchParams.entries()
-      )
+      const params = this.paramsToObject(searchParams)
 
       await this.evalLoad({
         [name]: window["paths"][name],
@@ -34,6 +32,7 @@ export class RenderClient {
 
       const res: RenderResponse = {}
       const req: RenderRequest = {
+        headers: {},
         path: window.location.pathname,
         method: "GET",
         files: {},
@@ -55,13 +54,12 @@ export class RenderClient {
   }
 
   paramsToObject(
-    entries: IterableIterator<[string, string]>
+    entries: URLSearchParams
   ): Record<string, string> {
     const result = {}
-    for (const entry of entries) {
-      const [key, value] = entry
+    entries.forEach((value, key) => {
       result[key] = value
-    }
+    })
     return result
   }
 
