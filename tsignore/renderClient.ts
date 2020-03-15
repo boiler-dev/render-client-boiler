@@ -65,12 +65,14 @@ export class RenderClient {
 
   route(path?: string): any {
     const stage = window["bootstrap"]["stage"]
-    const prepend =
-      stage && stage !== "prod" ? `/${stage}` : ""
 
     path = path || document.location.pathname
 
-    return this.app.router.route(prepend + path)
+    if (stage && stage !== "prod") {
+      path = path.slice(stage.length + 1)
+    }
+
+    return this.app.router.route(path)
   }
 }
 
